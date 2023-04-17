@@ -2,23 +2,6 @@ import React, {useState} from "react";
 import {Button, Platform, StyleSheet, Switch, Text, View} from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-// This is just for testing
-export const SimpleButton = () => {
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-        },
-    });
-
-    return (
-        <View style={styles.container}>
-            <Button title="Click me!" onPress={() => console.log("Button pressed")}/>
-        </View>
-    );
-};
-
 
 export const TimePicker = () => {
     const [pickerMode, setPickerMode] = useState(null);
