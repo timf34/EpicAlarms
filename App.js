@@ -1,11 +1,11 @@
 import React from "react";
 import { View } from "react-native";
-import SimpleButton from "./components/TimePicker";
+import { SimpleButton, TimePicker } from "./components/TimePicker";
 
 const App = () => {
     return (
         <View style={{ flex: 1 }}>
-            <SimpleButton />
+            <TimePicker />
         </View>
     );
 };

@@ -1,20 +1,76 @@
-import React from "react";
-import { View, Button, StyleSheet } from "react-native";
+import React, {useState} from "react";
+import {Button, Platform, StyleSheet, Switch, Text, View} from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const SimpleButton = () => {
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  });
+// This is just for testing
+export const SimpleButton = () => {
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+    });
 
-  return (
-      <View style={styles.container}>
-        <Button title="Click me!" onPress={() => console.log("Button pressed")} />
-      </View>
-  );
+    return (
+        <View style={styles.container}>
+            <Button title="Click me!" onPress={() => console.log("Button pressed")}/>
+        </View>
+    );
 };
 
-export default SimpleButton;
+
+export const TimePicker = () => {
+    const [pickerMode, setPickerMode] = useState(null);
+    const [inline, setInline] = useState(false);
+
+    const style = StyleSheet.create({
+        root: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        inlineSwitchContainer: {
+            marginTop: 28,
+            flexDirection: "row",
+            alignItems: "center",
+        },
+        inlineSwitchText: {
+            fontSize: 18,
+            marginRight: 8,
+        },
+    });
+
+    const showTimePicker = () => {
+        setPickerMode("time");
+    };
+
+    const hidePicker = () => {
+        setPickerMode(null);
+    };
+
+    const handleConfirm = (date) => {
+        // In order to prevent the double-shown popup bug on Android, picker has to be hidden first (https://github.com/react-native-datetimepicker/datetimepicker/issues/54#issuecomment-618776550)
+        hidePicker();
+        console.warn("A date has been picked: ", date);
+    };
+
+    return (
+        <View style={style.root}>
+            <Button title="Show Time Picker" onPress={showTimePicker}/>
+            {Platform.OS === "ios" && (
+                <View style={style.inlineSwitchContainer}>
+                    <Text style={style.inlineSwitchText}>Display inline?</Text>
+                    <Switch value={inline} onValueChange={setInline}/>
+                </View>
+            )}
+            <DateTimePickerModal
+                isVisible={pickerMode !== null}
+                mode={pickerMode}
+                onConfirm={handleConfirm}
+                onCancel={hidePicker}
+                display={inline ? "inline" : undefined}
+            />
+        </View>
+    );
+};
