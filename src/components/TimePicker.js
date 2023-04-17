@@ -49,15 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const App = () => {
-  console.log(TimePicker);
-  console.log("Hello dawg");
-  return (
-    <View>
-      <TimePicker />
-    </View>
-  );
-};
-
-export default App;
+export default TimePicker;
