@@ -6,6 +6,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 export const TimePicker = () => {
     const [pickerMode, setPickerMode] = useState(null);
     const [inline, setInline] = useState(false);
+    const [chosenTime, setChosenTime] = useState(null);
 
     const style = StyleSheet.create({
         root: {
@@ -22,6 +23,11 @@ export const TimePicker = () => {
             fontSize: 18,
             marginRight: 8,
         },
+        chosenTime: {
+        marginTop: 20,
+            fontSize: 18,
+            fontWeight: "bold",
+        },
     });
 
     const showTimePicker = () => {
@@ -33,9 +39,10 @@ export const TimePicker = () => {
     };
 
     const handleConfirm = (date) => {
-        // In order to prevent the double-shown popup bug on Android, picker has to be hidden first (https://github.com/react-native-datetimepicker/datetimepicker/issues/54#issuecomment-618776550)
         hidePicker();
-        console.warn("A date has been picked: ", date);
+        const chosenTime = date.toLocaleTimeString();
+        setChosenTime(chosenTime);
+        console.warn("A time has been picked: ", chosenTime);
     };
 
     return (
